@@ -23,8 +23,33 @@ ntp:
   {{ if .Enabled -}}
   enabled: true
   {{ end -}}
+  {{ if .NTPClient -}}
+  ntp_client: {{ .NTPClient }}
+  {{ end -}}
   servers:{{ range .Servers }}
     - {{ . }}
+  {{- end }}
+  pools:{{ range .Pools }}
+    - {{ . }}
+  {{- end -}}
+  {{- with .NTPConfig }}
+  config:
+    {{- if .ConfPath }}
+    confpath: {{ .ConfPath }}
+    {{- end -}}
+    {{- if .CheckEXE }}
+    check_exe: {{ .CheckEXE }}
+    {{- end }}
+    packages:{{ range .Packages }}
+      - {{ . }}
+    {{- end }}
+    {{- if .ServiceName }}
+    service_name: {{ .ServiceName }}
+    {{- end }}
+    {{- if .Template }}
+    template: |
+{{ Indent 8 .Template }}
+    {{- end -}}
   {{- end -}}
 {{- end -}}
 {{- end -}}

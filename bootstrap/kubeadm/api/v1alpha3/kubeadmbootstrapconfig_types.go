@@ -280,6 +280,44 @@ type NTP struct {
 	// Enabled specifies whether NTP should be enabled
 	// +optional
 	Enabled *bool `json:"enabled,omitempty"`
+
+	// Pools specifies which NTP pools to use
+	// +optional
+	Pools []string `json:"pools,omitempty"`
+
+	// NTPClient specifies the name of an NTP client to use to configure system NTP
+	// +optional
+	NTPClient *string `json:"ntpClient,omitempty"`
+
+	// NTPConfig contiains settings or overrides for the NTP client specified
+	// +optional
+	NTPConfig *NTPConfig `json:"config,omitempty"`
+}
+
+type NTPConfig struct {
+	// ConfPath is the path to where the NTP client configuration is written
+	// +optional
+	ConfPath *string `json:"confPath,omitempty"`
+
+	// CheckEXE is the executable name for the NTP client
+	// +optional
+	CheckEXE *string `json:"checkEXE,omitempty"`
+
+	// Packages is a list of packages needed to be installed for the selected NTP
+	// client
+	// +optional
+	Packages []string `json:"packages,omitempty"`
+
+	// ServiceName is the systemd or sysvinit service name used to start and
+	// stop the NTP client service
+	// +optional
+	ServiceName *string `json:"serviceName,omitempty"`
+
+	// Template allows users to define their own NTP client configuration template.
+	// The value must start with '## template:jinja' to enable use of templating
+	// support
+	// +optional
+	Template *string `json:"template,omitempty"`
 }
 
 // DiskSetup defines input for generated disk_setup and fs_setup in cloud-init.

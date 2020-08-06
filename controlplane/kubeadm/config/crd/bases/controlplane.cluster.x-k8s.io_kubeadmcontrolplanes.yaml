@@ -940,9 +940,47 @@ spec:
                   ntp:
                     description: NTP specifies NTP configuration
                     properties:
+                      config:
+                        description: NTPConfig contiains settings or overrides for
+                          the NTP client specified
+                        properties:
+                          checkEXE:
+                            description: CheckEXE is the executable name for the NTP
+                              client
+                            type: string
+                          confPath:
+                            description: ConfPath is the path to where the NTP client
+                              configuration is written
+                            type: string
+                          packages:
+                            description: Packages is a list of packages needed to
+                              be installed for the selected NTP client
+                            items:
+                              type: string
+                            type: array
+                          serviceName:
+                            description: ServiceName is the systemd or sysvinit service
+                              name used to start and stop the NTP client service
+                            type: string
+                          template:
+                            description: Template allows users to define their own
+                              NTP client configuration template. The value must start
+                              with '## template:jinja' to enable use of templating
+                              support
+                            type: string
+                        type: object
                       enabled:
                         description: Enabled specifies whether NTP should be enabled
                         type: boolean
+                      ntpClient:
+                        description: NTPClient specifies the name of an NTP client
+                          to use to configure system NTP
+                        type: string
+                      pools:
+                        description: Pools specifies which NTP pools to use
+                        items:
+                          type: string
+                        type: array
                       servers:
                         description: Servers specifies which NTP servers to use
                         items:
